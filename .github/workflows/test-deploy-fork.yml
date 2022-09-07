@@ -267,21 +267,21 @@ jobs:
 
       - name: Check PR labels action step
         id: check_success_label
-        uses: shioyang/check-pr-labels-on-push-action@v1.0.6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          labels: '["CI run has succeded!"]'
+        run: |
+          echo '::set-output name=success_id::${gh pr list --label 'CI run has failed!' | awk 'NR==1{print $1}'}'
       - name: See result
-        run: echo "${{ steps.check_success_label.outputs.result }}"
+        run: echo "${{ steps.check_success_label.outputs.success_id }}"
+      - name: See result
+        run: echo "${{ steps.check_success_label.outputs.success_id == 25 }}"
       
       - name: Check PR labels action step
         id: check_fail_label
-        uses: shioyang/check-pr-labels-on-push-action@v1.0.6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          labels: '["CI run has failed!"]'
+        run: |
+          echo '::set-output name=success_id::${gh pr list --label 'CI run has failed!' | awk 'NR==1{print $1}'}'
       - name: See result
-        run: echo "${{ contains(github.event.pull_request.labels.*.name, 'CI run has failed!') }}"
+        run: echo "${{ steps.check_fail_label.outputs.success_id }}"
+      - name: See result
+        run: echo "${{ steps.check_fail_label.outputs.success_id == 25 }}"
 
       - name: Label
         uses: ./.github/actions/fork-result-label
