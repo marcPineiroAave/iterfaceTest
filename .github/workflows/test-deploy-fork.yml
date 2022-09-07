@@ -292,6 +292,7 @@ jobs:
         uses: ./.github/actions/fork-result-label
         with:
           SUCCESS: 'false'
+          PULL_REQUEST_NUMBER: '${{ env.PR_NUMBER }}'
 
       - name: Comment
         uses: ./.github/actions/fork-result-comment
@@ -320,6 +321,7 @@ jobs:
         uses: ./.github/actions/fork-result-label
         with:
           SUCCESS: 'true'
+          PULL_REQUEST_NUMBER: '${{ env.PR_NUMBER }}'
 
       - name: Comment
         uses: ./.github/actions/fork-result-label
