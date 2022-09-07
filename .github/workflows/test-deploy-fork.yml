@@ -270,12 +270,14 @@ jobs:
         with:
           SUCCESS: 'false'
           PULL_REQUEST_NUMBER: 25
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Label
         uses: ./.github/actions/fork-result-label
         with:
           SUCCESS: 'false'
           PULL_REQUEST_NUMBER: ${{ env.PR_NUMBER }}
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Comment
         uses: ./.github/actions/fork-result-comment

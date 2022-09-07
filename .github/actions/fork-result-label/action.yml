@@ -8,6 +8,10 @@ inputs:
     description: Pull request id
     required: false
     default: "0"
+  TOKEN:
+    description: Pull request id
+    required: false
+    default: "0"
 runs:
   using: "composite"
   steps:
@@ -17,7 +21,7 @@ runs:
       shell: sh
     - name: See result
       run: |
-        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        echo ${{ inputs.TOKEN }} | gh auth login --with-token
         echo "${{ steps.check_success_label.outputs.success_id }}"
       shell: sh
     - name: See result
@@ -30,7 +34,7 @@ runs:
       shell: sh
     - name: See result
       run: |
-        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        echo ${{ inputs.TOKEN }} | gh auth login --with-token
         echo "${{ steps.check_fail_label.outputs.fail_id }}"
       shell: sh
     - name: See result
