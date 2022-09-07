@@ -16,34 +16,14 @@ runs:
   using: "composite"
   steps:
     - name: Check PR labels action step
-      run: |
-        echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        result=$(gh pr list --label "CI run has succeded!")
-        echo $result
-      shell: sh
-    - name: Check PR labels action step
-      run: |
-        echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        result=$(gh pr list --label "CI run has succeded!")
-        echo $result
-        result=$(echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
-        echo $result
-      shell: sh
-    - name: Check PR labels action step
       id: check_success_label
-      run: |
-        echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        result=$(gh pr list --label "CI run has succeded!")
-        echo $result
-        result=$(echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
-        echo $result
-        echo "::set-output name=success_id::$result"
+      run: echo "TEST_COMPLETED=$( echo gh pr list --label 'CI run has succeded!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})" >> $GITHUB_ENV
       shell: sh
     - name: See result
-      run: echo "${{ steps.check_success_label.outputs.success_id }}"
+      run: echo "${{ env.TEST_COMPLETED }}"
       shell: sh
     - name: See result
-      run: echo "${{ steps.check_success_label.outputs.success_id == inputs.PULL_REQUEST_NUMBER }}"
+      run: echo "${{ env.TEST_COMPLETED == inputs.PULL_REQUEST_NUMBER }}"
       shell: sh
     
     - name: Check PR labels action step
