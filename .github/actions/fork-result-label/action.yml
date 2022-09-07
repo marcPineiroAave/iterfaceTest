@@ -13,10 +13,12 @@ runs:
   steps:
     - name: Check PR labels action step
       id: check_success_label
-      run: echo '::set-output name=success_id::${gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}'
+      run: echo '::set-output name=success_id::$(gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})'
       shell: sh
     - name: See result
-      run: echo "${{ steps.check_success_label.outputs.success_id }}"
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        echo "${{ steps.check_success_label.outputs.success_id }}"
       shell: sh
     - name: See result
       run: echo "${{ steps.check_success_label.outputs.success_id == inputs.PULL_REQUEST_NUMBER }}"
@@ -24,10 +26,12 @@ runs:
     
     - name: Check PR labels action step
       id: check_fail_label
-      run: echo '::set-output name=fail_id::${gh pr list --label "CI run has failed!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}'
+      run: echo '::set-output name=fail_id::$(gh pr list --label "CI run has failed!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})'
       shell: sh
     - name: See result
-      run: echo "${{ steps.check_fail_label.outputs.fail_id }}"
+      run: |
+        echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+        echo "${{ steps.check_fail_label.outputs.fail_id }}"
       shell: sh
     - name: See result
       run: echo "${{ steps.check_fail_label.outputs.fail_id == inputs.PULL_REQUEST_NUMBER }}"
