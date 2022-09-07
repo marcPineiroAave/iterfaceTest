@@ -12,12 +12,10 @@ runs:
   using: "composite"
   steps:
     - name: delete success label
-      if: contains( github.event.pull_request.labels.*.name, 'CI run has succeded!')
       uses: actions-ecosystem/action-remove-labels@v1
       with:
           labels: "CI run has succeded!"
     - name: delete fail label
-      if: contains( github.event.pull_request.labels.*.name, 'CI run has failed!')
       uses: actions-ecosystem/action-remove-labels@v1
       with:
           labels: "CI run has failed!"
