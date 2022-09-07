@@ -19,7 +19,9 @@ runs:
       id: check_success_label
       run: |
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        result=$(gh pr list --label 'CI run has succeded!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
+        result=${gh pr list --label 'CI run has succeded!'}
+        echo $result
+        result=${echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}
         echo ::set-output name=success_id::$result
       shell: sh
     - name: See result
@@ -33,7 +35,9 @@ runs:
       id: check_fail_label
       run: |
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        result=$(gh pr list --label 'CI run has failed!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
+        result=${gh pr list --label 'CI run has failed!'}
+        echo $result
+        result=${echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}
         echo ::set-output name=fail_id::$result
       shell: sh
     - name: See result
