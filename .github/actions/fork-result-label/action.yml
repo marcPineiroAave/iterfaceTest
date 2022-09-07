@@ -16,14 +16,12 @@ runs:
   using: "composite"
   steps:
     - name: Check PR labels action step
-      id: check_success_label
       run: |
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
         result=$(gh pr list --label "CI run has succeded!")
         echo $result
       shell: sh
     - name: Check PR labels action step
-      id: check_success_label
       run: |
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
         result=$(gh pr list --label "CI run has succeded!")
