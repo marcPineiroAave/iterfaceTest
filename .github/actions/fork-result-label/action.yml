@@ -4,6 +4,10 @@ inputs:
   SUCCESS:
     description: Text of the comment
     required: true
+  PULL_REQUEST_NUMBER:
+    description: Pull request id
+    required: false
+    default: "0"
 runs:
   using: "composite"
   steps:
@@ -22,10 +26,10 @@ runs:
       if: ${{ inputs.SUCCESS == 'true' }}
       with:
           add-labels: "CI run has succeded!"
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ inputs.PULL_REQUEST_NUMBER }}
     - name: adding fail label
       uses: andymckay/labeler@e6c4322d0397f3240f0e7e30a33b5c5df2d39e90
       if: ${{ inputs.SUCCESS == 'false' }}
       with:
           add-labels: "CI run has failed!"
-          repo-token: ${{ secrets.GITHUB_TOKEN }
+          repo-token: ${{ inputs.PULL_REQUEST_NUMBER }
