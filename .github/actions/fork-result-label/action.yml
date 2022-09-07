@@ -17,12 +17,15 @@ runs:
   steps:
     - name: Check PR labels action step
       id: check_success_label
-      run: echo '::set-output name=success_id::$(gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})'
-      shell: sh
-    - name: See result
       run: |
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        echo $(gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
+        echo "::set-output name=success_id::$(gh pr list --label 'CI run has succeded!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})"
+      shell: sh
+    - name: See result
+      run: echo $(gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
+      shell: sh
+    - name: See result
+      run: echo "${{ steps.check_success_label.outputs.success_id }}"
       shell: sh
     - name: See result
       run: echo "${{ steps.check_success_label.outputs.success_id == inputs.PULL_REQUEST_NUMBER }}"
