@@ -38,7 +38,7 @@ runs:
         result=${gh pr list --label 'CI run has failed!'}
         echo $result
         result=${echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}
-        echo ::set-output name=fail_id::$result
+        echo ""::set-output name=fail_id::$result"
       shell: sh
     - name: See result
       run: echo "${{ steps.check_fail_label.outputs.fail_id == inputs.PULL_REQUEST_NUMBER }}"
