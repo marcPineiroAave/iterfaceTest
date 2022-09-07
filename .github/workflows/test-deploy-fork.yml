@@ -265,24 +265,6 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
 
-      - name: Check PR labels action step
-        id: check_success_label
-        run: |
-          echo '::set-output name=success_id::${gh pr list --label 'CI run has failed!' | awk 'NR==1{print $1}'}'
-      - name: See result
-        run: echo "${{ steps.check_success_label.outputs.success_id }}"
-      - name: See result
-        run: echo "${{ steps.check_success_label.outputs.success_id == 25 }}"
-      
-      - name: Check PR labels action step
-        id: check_fail_label
-        run: |
-          echo '::set-output name=success_id::${gh pr list --label 'CI run has failed!' | awk 'NR==1{print $1}'}'
-      - name: See result
-        run: echo "${{ steps.check_fail_label.outputs.success_id }}"
-      - name: See result
-        run: echo "${{ steps.check_fail_label.outputs.success_id == 25 }}"
-
       - name: Label
         uses: ./.github/actions/fork-result-label
         with:
