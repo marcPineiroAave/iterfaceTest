@@ -270,7 +270,7 @@ jobs:
 
       - uses: actions-ecosystem/action-add-labels@v1
         with:
-          labels: bug
+          labels: "CI run has succeded!"
           number: 25
 
       - name: Label
