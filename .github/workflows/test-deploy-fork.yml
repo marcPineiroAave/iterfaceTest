@@ -281,7 +281,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           labels: '["CI run has failed!"]'
       - name: See result
-        run: echo "${{ github.event.pull_request.labels.*.name }}"
+        run: echo "${{ contains(github.event.pull_request.labels.*.name, 'safe to test') }}"
 
       - name: Label
         uses: ./.github/actions/fork-result-label
