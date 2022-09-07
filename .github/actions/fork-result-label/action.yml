@@ -25,11 +25,9 @@ runs:
       uses: actions-ecosystem/action-add-labels@v1
       if: ${{ inputs.SUCCESS == 'true' }}
       with:
-          add-labels: "CI run has succeded!"
-          repo-token: ${{ inputs.PULL_REQUEST_NUMBER }}
+          labels: "CI run has succeded!"
     - name: adding fail label
-      uses: andymckay/labeler@e6c4322d0397f3240f0e7e30a33b5c5df2d39e90
+      uses: actions-ecosystem/action-add-labels@v1
       if: ${{ inputs.SUCCESS == 'false' }}
       with:
-          add-labels: "CI run has failed!"
-          repo-token: ${{ inputs.PULL_REQUEST_NUMBER }}
+          labels: "CI run has failed!"

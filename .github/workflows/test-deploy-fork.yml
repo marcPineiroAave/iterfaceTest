@@ -264,18 +264,16 @@ jobs:
       PR_NUMBER: ${{ needs.prepare_jobs.outputs.pr_number }}
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
-      
-      - name: Label issues
-        uses: andymckay/labeler@e6c4322d0397f3240f0e7e30a33b5c5df2d39e90
+
+      - uses: actions-ecosystem/action-add-labels@v1
         with:
-          add-labels: "triage"
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          labels: bug
 
       - name: Label
         uses: ./.github/actions/fork-result-label
         with:
           SUCCESS: 'false'
-          PULL_REQUEST_NUMBER: '${{ secrets.GITHUB_TOKEN }}'
+          PULL_REQUEST_NUMBER: '${{ steps.get_pr_number.outputs.pr_number }}'
 
       - name: Comment
         uses: ./.github/actions/fork-result-comment
