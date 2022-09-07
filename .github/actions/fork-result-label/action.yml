@@ -26,8 +26,10 @@ runs:
       if: ${{ inputs.SUCCESS == 'true' }}
       with:
           labels: "CI run has succeded!"
+          number: PULL_REQUEST_NUMBER
     - name: adding fail label
       uses: actions-ecosystem/action-add-labels@v1
       if: ${{ inputs.SUCCESS == 'false' }}
       with:
           labels: "CI run has failed!"
+          number: PULL_REQUEST_NUMBER
