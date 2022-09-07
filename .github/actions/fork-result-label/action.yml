@@ -13,7 +13,7 @@ runs:
   steps:
     - name: Check PR labels action step
       id: check_success_label
-      run: echo '::set-output name=success_id::${gh pr list --label "CI run has succeded!" | awk \'{print \$1}\' | grep ${{ inputs.PULL_REQUEST_NUMBER }} }'
+      run: echo '::set-output name=success_id::$(gh pr list --label "CI run has succeded!" | awk \'{print \$1}\' | grep ${{ inputs.PULL_REQUEST_NUMBER }} )'
       shell: sh
     - name: See result
       run: echo "${{ steps.check_success_label.outputs.success_id }}"
@@ -24,7 +24,7 @@ runs:
     
     - name: Check PR labels action step
       id: check_fail_label
-      run: echo '::set-output name=success_id::${gh pr list --label "CI run has failed!" | awk \'{print \$1}\'  | grep ${{ inputs.PULL_REQUEST_NUMBER }} }'
+      run: echo '::set-output name=success_id::$(gh pr list --label "CI run has failed!" | awk \'{print \$1}\'  | grep ${{ inputs.PULL_REQUEST_NUMBER }} )'
       shell: sh
     - name: See result
       run: echo "${{ steps.check_fail_label.outputs.success_id }}"
