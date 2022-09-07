@@ -265,6 +265,11 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
 
+      - name: Label
+        uses: ./.github/actions/fork-result-label
+        with:
+          SUCCESS: 'false'
+
       - name: Comment
         uses: ./.github/actions/fork-result-comment
         with:
@@ -273,11 +278,6 @@ jobs:
             ❌ CI run has failed!
             Please see logs at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
-
-      - name: Label
-        uses: ./.github/actions/fork-result-label
-        with:
-          SUCCESS: 'false'
 
   notify_success:
     runs-on: [self-hosted, server, test]
@@ -293,6 +293,11 @@ jobs:
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
 
+      - name: Label
+        uses: ./.github/actions/fork-result-label
+        with:
+          SUCCESS: 'true'
+
       - name: Comment
         uses: ./.github/actions/fork-result-label
         with:
@@ -300,8 +305,3 @@ jobs:
           COMMENT_BODY: |
               ✅ CI run has succeded!
               You can find tests and deployment logs at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
-
-      - name: Label
-        uses: ./.github/actions/fork-result-label
-        with:
-          SUCCESS: 'true'
