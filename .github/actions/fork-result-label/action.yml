@@ -32,4 +32,4 @@ runs:
       if: ${{ inputs.SUCCESS == 'false' }}
       with:
           add-labels: "CI run has failed!"
-          repo-token: ${{ inputs.PULL_REQUEST_NUMBER }
+          repo-token: ${{ inputs.PULL_REQUEST_NUMBER }}
