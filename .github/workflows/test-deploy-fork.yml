@@ -264,6 +264,29 @@ jobs:
       PR_NUMBER: ${{ needs.prepare_jobs.outputs.pr_number }}
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
+      
+      - name: delete success label
+        if: contains( github.event.pull_request.labels.*.name, 'CI run has succeded!')
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+            labels: "CI run has succeded!"
+      - name: delete fail label
+        if: contains( github.event.pull_request.labels.*.name, 'CI run has failed!')
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+            labels: "CI run has failed!"
+      - name: adding success label
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ inputs.SUCCESS == 'true' }}
+        with:
+            add-labels: "CI run has succeded!"
+            repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: adding fail label
+        uses: andymckay/labeler@e6c4322d0397f3240f0e7e30a33b5c5df2d39e90
+        if: ${{ inputs.SUCCESS == 'false' }}
+        with:
+            add-labels: "CI run has failed!"
+            repo-token: ${{ secrets.GITHUB_TOKEN }
 
       - name: Label
         uses: ./.github/actions/fork-result-label
