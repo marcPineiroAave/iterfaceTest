@@ -22,7 +22,7 @@ runs:
     - name: See result
       run: |
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
-        echo "${{ steps.check_success_label.outputs.success_id }}"
+        echo $(gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
       shell: sh
     - name: See result
       run: echo "${{ steps.check_success_label.outputs.success_id == inputs.PULL_REQUEST_NUMBER }}"
