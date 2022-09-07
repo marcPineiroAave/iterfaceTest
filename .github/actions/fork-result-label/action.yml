@@ -17,7 +17,7 @@ runs:
   steps:
     - name: Check PR labels action step
       id: check_success_label
-      run: echo "TEST_COMPLETED=$( echo gh pr list --label 'CI run has succeded!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})" >> $GITHUB_ENV
+      run: echo "TEST_COMPLETED=$( gh pr list --label 'CI run has succeded!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})" >> $GITHUB_ENV
       shell: sh
     - name: See result
       run: echo "${{ env.TEST_COMPLETED }}"
