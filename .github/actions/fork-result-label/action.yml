@@ -13,6 +13,7 @@ runs:
   steps:
     - name: Check PR labels action step
       id: check_success_label
+      shell: sh
       run: |
         echo '::set-output name=success_id::${gh pr list --label "CI run has succeded!" | awk \'{print \$1}\' | grep ${{ inputs.PULL_REQUEST_NUMBER }}'
     - name: See result
@@ -22,6 +23,7 @@ runs:
     
     - name: Check PR labels action step
       id: check_fail_label
+      shell: sh
       run: |
         echo '::set-output name=success_id::${gh pr list --label "CI run has failed!" | awk \'{print \$1}\'  | grep ${{ inputs.PULL_REQUEST_NUMBER }}}'
     - name: See result
