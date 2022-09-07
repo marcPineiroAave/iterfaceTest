@@ -1,0 +1,29 @@
+name: Add label to PR with CI results
+description: Add label to PR with CI results
+inputs:
+  SUCCESS:
+    description: Text of the comment
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: delete success label
+      if: contains( github.event.pull_request.labels.*.name, '✅ CI run has succeded!')
+      uses: actions-ecosystem/action-remove-labels@v1
+      with:
+          labels: '❌ CI run has failed!'
+    - name: delete fail label
+      if: contains( github.event.pull_request.labels.*.name, '❌ CI run has failed!')
+      uses: actions-ecosystem/action-remove-labels@v1
+      with:
+          labels: '✅ CI run has succeded!'
+    - name: adding success label
+      uses: actions-ecosystem/action-add-labels@v1
+      if: ${{ inputs.COMMENT_BODY == 'true' }}
+      with:
+        labels: bug
+    - name: adding fail label
+      uses: actions-ecosystem/action-add-labels@v1
+      if: ${{ inputs.COMMENT_BODY == 'false' }}
+      with:
+        labels: '❌ CI run has failed!'
