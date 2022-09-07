@@ -23,9 +23,6 @@ runs:
         echo ::set-output name=success_id::$result
       shell: sh
     - name: See result
-      run: echo $(gh pr list --label "CI run has succeded!" | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
-      shell: sh
-    - name: See result
       run: echo "${{ steps.check_success_label.outputs.success_id }}"
       shell: sh
     - name: See result
@@ -38,6 +35,7 @@ runs:
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
         result=$(gh pr list --label 'CI run has failed!' | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
         echo ::set-output name=fail_id::$result
+      shell: sh
     - name: See result
       run: echo "${{ steps.check_fail_label.outputs.fail_id == inputs.PULL_REQUEST_NUMBER }}"
       shell: sh
