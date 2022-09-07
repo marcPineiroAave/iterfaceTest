@@ -266,21 +266,12 @@ jobs:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
 
       - name: test
-        run: ${{github.event.issue.number}}
-
-      - name: test2
-        run: ${{github.event.issue.number}}
-
-      - name: tert
-        run: ${{ github.event.pull_request.number }}
-
-      - name: test2
-        run: $(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+        run: echo ${{ github.event.number }}
 
       - uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: bug
-          number: ${{ env.PR_NUMBER }}
+          number: 25
 
       - name: Label
         uses: ./.github/actions/fork-result-label
