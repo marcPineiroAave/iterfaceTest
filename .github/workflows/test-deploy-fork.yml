@@ -264,15 +264,24 @@ jobs:
       PR_NUMBER: ${{ needs.prepare_jobs.outputs.pr_number }}
     steps:
       - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # v3.0.2
-      
+
       - name: Check PR labels action step
-        id: check_pr_labels
+        id: check_success_label
         uses: shioyang/check-pr-labels-on-push-action@v1.0.6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          labels: '["enhancement"]'
+          labels: '["CI run has succeded!"]'
       - name: See result
-        run: echo "${{ steps.check_pr_labels.outputs.result }}"
+        run: echo "${{ steps.check_success_label.outputs.result }}"
+      
+      - name: Check PR labels action step
+        id: check_fail_label
+        uses: shioyang/check-pr-labels-on-push-action@v1.0.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          labels: '["CI run has failed!"]'
+      - name: See result
+        run: echo "${{ steps.check_fail_label.outputs.result }}"
 
       - name: Label
         uses: ./.github/actions/fork-result-label
