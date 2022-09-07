@@ -277,13 +277,11 @@ jobs:
             labels: "CI run has failed!"
       - name: adding success label
         uses: actions-ecosystem/action-add-labels@v1
-        if: ${{ inputs.SUCCESS == 'true' }}
         with:
             add-labels: "CI run has succeded!"
             repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: adding fail label
         uses: andymckay/labeler@e6c4322d0397f3240f0e7e30a33b5c5df2d39e90
-        if: ${{ inputs.SUCCESS == 'false' }}
         with:
             add-labels: "CI run has failed!"
             repo-token: ${{ secrets.GITHUB_TOKEN }
