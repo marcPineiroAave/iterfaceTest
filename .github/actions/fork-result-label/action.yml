@@ -26,7 +26,7 @@ runs:
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
         result=$(gh pr list --label "CI run has succeded!")
         echo $result
-        result=${echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}
+        result=$(echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
         echo $result
       shell: sh
     - name: Check PR labels action step
@@ -35,9 +35,9 @@ runs:
         echo ${{ inputs.TOKEN }} | gh auth login --with-token
         result=$(gh pr list --label "CI run has succeded!")
         echo $result
-        result=${echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }}}
+        result=$(echo $result | grep -o ${{ inputs.PULL_REQUEST_NUMBER }})
         echo $result
-        echo ::set-output name=success_id::$result
+        echo "::set-output name=success_id::$result"
       shell: sh
     - name: See result
       run: echo "${{ steps.check_success_label.outputs.success_id }}"
