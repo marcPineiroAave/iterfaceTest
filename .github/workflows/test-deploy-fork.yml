@@ -33,7 +33,7 @@ jobs:
           path: ./
 
       - name: Link this CI run to PR
-        uses: actions/github-script@d50f485531ba88479582bc2da03ff424389af5c1 # v6.1.1
+        uses: actions/github-script@d4560e157075e2d93aa3022b5b51a42a880f1f93 # v6.1.1
         with:
           script: |
             await github.rest.issues.createComment({
@@ -134,7 +134,7 @@ jobs:
           CID_VERSION: 1
 
       - name: 'Comment on PR'
-        uses: actions/github-script@d50f485531ba88479582bc2da03ff424389af5c1 # v6.1.1
+        uses: actions/github-script@d4560e157075e2d93aa3022b5b51a42a880f1f93 # v6.1.1
         with:
           script: |
             await github.rest.issues.createComment({
